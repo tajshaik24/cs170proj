@@ -38,10 +38,10 @@ def makeInput(n, k, s, folder):
 
 	file = folder + '/parameters.txt'
 	with open(file, 'w') as f:
-		f.write(str(k))
-		f.write(str(s))
+		f.write(str(k) + '\n')
+		f.write(str(s) + '\n')
 		for x in rowdyGroups:
-			f.writelines(x)
+			f.write("%s\n" % x)
 	f.close()
 
 
@@ -88,15 +88,16 @@ def generateRowdy(numComponents, connComponents, numGroups, s):
 
 
 def randomGraph(n):
-	numSubGraphs = n // 10
 	graphs = []
 	# TODO: Allow flexibility in inputs
 	if n == 50:
 		subNodes = [15, 15, 10, 5, 5]
 		edgeProbs = [0.35, 0.30, 0.40, 0.35, 0.45]
+		numSubGraphs = len(subNodes)
 	elif n == 500:
 		subNodes = [75, 75, 75, 50, 50, 50, 50, 25, 25, 25]
 		edgeProbs = [0.35, 0.30, 0.40, 0.35, 0.45, 0.3, 0.2, 0.35, 0.3, 0.4]
+		numSubGraphs = len(subNodes)
 	elif n == 1000:
 		subNodes = [100, 100]
 		subNodes.extend([75 for i in range(4)])
@@ -105,13 +106,10 @@ def randomGraph(n):
 		subNodes.extend([10 for i in range(15)])
 		numSubGraphs = len(subNodes)
 		edgeProbs = [random.uniform(0.2, 0.45) for i in range(numSubGraphs)]
-
-	rename = [str(x) for x in range(numSubGraphs)]
-	rename = tuple(rename)
 	for i in range(numSubGraphs):
 		A = nx.gnp_random_graph(subNodes[i], edgeProbs[i])
 		graphs.append(A)
-	G = nx.union_all(graphs, rename = rename)
+	G = nx.disjoint_union_all(graphs)
 	G = nx.convert_node_labels_to_integers(G, first_label=1)
 	G = nx.relabel_nodes(G, lambda x: str(x))
 	return G
