@@ -20,12 +20,19 @@ def main():
 	rowdyGroups = []
 	for _ in range(75):
 		group = []
-		for _ in range(random.randint(2, 15)):
+		i = 0
+		toAdd = random.randint(2, 15)
+		while i != toAdd:
 			j = random.randint(0, numComponents - 1)
 			component = connComponents[j]
 			k = random.randint(0, len(component) - 1)
-			group.append(component[k])
+			node = component[k]
+			if node not in group:
+				group.append(component[k])
+				i += 1
+		group = [int(x) for x in group]
 		group = sorted(group)
+		group = [str(x) for x in group]
 		if group not in rowdyGroups:
 			rowdyGroups.append(group)
 
@@ -41,13 +48,14 @@ def parseGraph(folder_name):
 	return graph
 
 def randomGraph():
-	A = nx.gnp_random_graph(20, 0.35)
-	B = nx.gnp_random_graph(15, 0.25)
-	C = nx.gnp_random_graph(10, 0.15)
-	D = nx.gnp_random_graph(5, 0.20)
+	A = nx.gnp_random_graph(20, 0.35, seed=0)
+	B = nx.gnp_random_graph(15, 0.25, seed=1)
+	C = nx.gnp_random_graph(10, 0.15, seed=2)
+	D = nx.gnp_random_graph(5, 0.20, seed=3)
 	graphs = [A, B, C, D]
 	G = nx.union_all(graphs, rename = ('A', 'B', 'C', 'D'))
 	G = nx.convert_node_labels_to_integers(G, first_label=1)
+	G = nx.relabel_nodes(G, lambda x: str(x))
 	return G
 
 def draw(G):
