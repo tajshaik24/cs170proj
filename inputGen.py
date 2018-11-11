@@ -3,57 +3,115 @@ import os
 import matplotlib.pyplot as plt
 import random
 
+SEED = 123456789
+
 def main():
-	#G = parseGraph('graphs')
-	G = randomGraph()
+	makeInput(50, 5, 15, 'small')
+	makeInput(500, 25, 30, 'medium')
+	makeInput(1000, 50, 75, 'large')
+
+
+# Parameters
+# n: Number of children
+# k: Number of buses
+# s: Bus capacity
+def makeInput(n, k, s, folder):
+	G = randomGraph(n)
 	numComponents = nx.number_connected_components(G)
 	connComponents = list(nx.connected_components(G))
+	# Converting connected components from Sets to Lists
 	connComponents = [list(S) for S in connComponents]
 
-	print(connComponents)
+	# Deciding how many rowdy groups based on number of children
+	if n <= 50:
+		numRowdy = 75
+	elif n <= 500:
+		numRowdy = 750
+	elif n <= 2000:
+		numRowdy = 1500
+	rowdyGroups = generateRowdy(numComponents, connComponents, numRowdy, s)
 
-	# Assuming the following paramters for now:
-	# 50 students
-	# k = 5 buses
-	# s = 15 children per bus capacity
-	# Therefore, rowdy groups can be of size 2 to 15
+	if not os.path.exists(folder):
+		os.mkdir(folder)
+	path = folder + '/graph.gml'
+	nx.write_gml(G, path)
+
+	file = folder + '/parameters.txt'
+	with open(file, 'w') as f:
+		f.write(str(k))
+		f.write(str(s))
+		for x in rowdyGroups:
+			f.writelines(x)
+	f.close()
+
+
+
+
+
+def generateRowdy(numComponents, connComponents, numGroups, s):
 	rowdyGroups = []
-	for _ in range(75):
+	a = 0
+	while a != numGroups:
 		group = []
 		i = 0
-		toAdd = random.randint(2, 15)
+		# We can have rowdy groups of size 2 to capacity of one bus (s)
+		toAdd = random.randint(2, s)
 		while i != toAdd:
+			# Get a random connected component
 			j = random.randint(0, numComponents - 1)
 			component = connComponents[j]
+			# Get a random node in the component
 			k = random.randint(0, len(component) - 1)
 			node = component[k]
+			# Check to make sure this node is not already in the rowdy group
 			if node not in group:
 				group.append(component[k])
 				i += 1
+		# Convert rowdy group nodes to ints 
 		group = [int(x) for x in group]
+		# Sort the elements of rowdy group to make it easier to check equality
 		group = sorted(group)
+		# Convert nodes back to string for input requirements
 		group = [str(x) for x in group]
+		# Check to see if this rowdy group has already been created
 		if group not in rowdyGroups:
 			rowdyGroups.append(group)
+			a += 1
 
-	print(len(rowdyGroups), " rowdy groups generated!")
-	print(numComponents, " connected components in the graph.")
-	print("The rowdy groups are: ")
-	for x in rowdyGroups:
-		print(x)
+	# print(len(rowdyGroups), " rowdy groups generated!")
+	# print(numComponents, " connected components in the graph.")
+	# print("The rowdy groups are: ")
+	# for x in rowdyGroups:
+	# 	print(x)
+
+	return rowdyGroups
 
 
-def parseGraph(folder_name):
-	graph = nx.read_gml(folder_name + "/names.gml")
-	return graph
+def randomGraph(n):
+	numSubGraphs = n // 10
+	graphs = []
+	# TODO: Allow flexibility in inputs
+	if n == 50:
+		subNodes = [15, 15, 10, 5, 5]
+		edgeProbs = [0.35, 0.30, 0.40, 0.35, 0.45]
+	elif n == 500:
+		subNodes = [75, 75, 75, 50, 50, 50, 50, 25, 25, 25]
+		edgeProbs = [0.35, 0.30, 0.40, 0.35, 0.45, 0.3, 0.2, 0.35, 0.3, 0.4]
+	elif n == 1000:
+		subNodes = [100, 100]
+		subNodes.extend([75 for i in range(4)])
+		subNodes.extend([25 for i in range(5)])
+		subNodes.extend([15 for i in range(15)])
+		subNodes.extend([10 for i in range(15)])
+		numSubGraphs = len(subNodes)
+		edgeProbs = [random.uniform(0.2, 0.45) for i in range(numSubGraphs)]
 
-def randomGraph():
-	A = nx.gnp_random_graph(20, 0.35, seed=0)
-	B = nx.gnp_random_graph(15, 0.25, seed=1)
-	C = nx.gnp_random_graph(10, 0.15, seed=2)
-	D = nx.gnp_random_graph(5, 0.20, seed=3)
-	graphs = [A, B, C, D]
-	G = nx.union_all(graphs, rename = ('A', 'B', 'C', 'D'))
+	rename = [str(x) for x in range(numSubGraphs)]
+	rename = tuple(rename)
+	for i in range(numSubGraphs):
+		A = nx.gnp_random_graph(subNodes[i], edgeProbs[i])
+		graphs.append(A)
+	G = nx.union_all(graphs, rename = rename)
 	G = nx.convert_node_labels_to_integers(G, first_label=1)
 	G = nx.relabel_nodes(G, lambda x: str(x))
 	return G
