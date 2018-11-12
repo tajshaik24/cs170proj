@@ -2,13 +2,18 @@ import networkx as nx
 import os
 import matplotlib.pyplot as plt
 import random
+import sys
 
 SEED = 123456789
 
 def main():
-	makeInput(50, 5, 15, 'small')
-	makeInput(500, 25, 30, 'medium')
-	makeInput(1000, 50, 75, 'large')
+	flags = sys.argv
+	if '-s' in flags:
+		makeInput(50, 5, 15, 'small')
+	if '-m' in flags:
+		makeInput(500, 25, 30, 'medium')
+	if '-l' in flags:
+		makeInput(1000, 50, 75, 'large')
 
 
 # Parameters
