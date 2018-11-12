@@ -1,4 +1,4 @@
-# buses-cs170proj
+# Constraint Satisfaction - Seating Students in Buses
 
 ## Input Generation
 
