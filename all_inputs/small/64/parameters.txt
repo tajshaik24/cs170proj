@@ -1,0 +1,7 @@
+10
+6
+['MQHX', 'XJJM', 'TDHG', 'BQLI', 'ZJLH', 'CNGM', 'NIST']
+['MKZR', 'YRSP', 'LFRK']
+['RWHO', 'SJKT', 'DIEW', 'UYWK', 'VGJJ', 'QEHO']
+['HLBZ', 'TJCC', 'FNLQ', 'IYIF', 'MQHX', 'XJJM']
+['GLFF', 'MQHX', 'XJJM', 'TDHG', 'BQLI', 'ZJLH']

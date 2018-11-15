@@ -1,0 +1,12 @@
+5
+10
+['Thisisacontradiction', 'Infinteloopifhalt', 'Basecases', 'Perfectmatching']
+['Italianlessons', 'ohno', 'Perfectmatching', 'DP']
+['Gadget', 'Proofbyinduction', 'Divideandconquer']
+['Italianlessons', 'Efficientalgorithms']
+['Justnegatetheedges', 'Readsofftheslides', 'Quantumcomputing', 'Maxflowmincut']
+['Efficientalgorithms', 'Knapsack']
+['Proofisobvious', 'Quantumcomputing', 'Proofbyinduction', 'Basecases']
+['Proofisobvious', 'Basecases', 'Woohoo']
+['FFT', 'Duality']
+['Justnegatetheedges', 'DP']

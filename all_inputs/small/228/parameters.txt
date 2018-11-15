@@ -1,0 +1,12 @@
+5
+10
+['Amber', 'Brooke', 'Andrea', 'Jordan', 'Sierra', 'Katelyn', 'Danielle', 'Mary', 'Michelle', 'Gabrielle']
+['Jenna', 'Brittany', 'Courtney', 'Madeline', 'Jacqueline', 'Erin', 'Caroline', 'Sara', 'Vanessa', 'Kimberly']
+['Melissa', 'Paige', 'Makayla', 'Kaylee', 'Faith', 'Bailey', 'Christina', 'Caitlin', 'Shelby', 'Trinity']
+['Mariah', 'Angela', 'Catherine', 'Laura', 'Autumn', 'Marissa', 'Zoe', 'Briana', 'Breanna', 'Jada']
+['Kelsey', 'Isabel', 'Sabrina', 'Molly', 'Claire', 'Alexa', 'Alexandria', 'Mia', 'Kathryn', 'Leslie']
+['Kaylee', 'Catherine', 'Caroline', 'Kelsey', 'Caitlin', 'Faith', 'Makayla', 'Christina', 'Vanessa', 'Shelby']
+['Laura', 'Claire', 'Makayla', 'Christina', 'Vanessa', 'Melissa', 'Bailey', 'Breanna', 'Shelby', 'Mia']
+['Briana', 'Michelle', 'Brooke', 'Makayla', 'Trinity', 'Mariah', 'Erin', 'Gabrielle', 'Marissa', 'Kaylee']
+['Caroline', 'Makayla', 'Angela', 'Molly', 'Marissa', 'Amber', 'Leslie', 'Claire', 'Jordan', 'Brooke']
+['Marissa', 'Courtney', 'Alexa', 'Catherine', 'Breanna', 'Brittany', 'Sara', 'Katelyn', 'Trinity', 'Kelsey']

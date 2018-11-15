@@ -1,0 +1,5 @@
+5
+10
+['Abdul', 'Allie', 'Devin', 'Freda', 'Effie']
+['Elmer', 'Darla', 'Ellen', 'Alisa', 'Arlie']
+['Cyril', 'Susie', 'Aisha', 'Terra', 'Malik']

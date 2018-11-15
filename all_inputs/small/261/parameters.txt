@@ -1,0 +1,17 @@
+5
+40
+['Killua0', 'Killua11']
+['Killua0', 'Killua12']
+['Killua0', 'Killua13']
+['Killua10', 'Killua21']
+['Killua10', 'Killua22']
+['Killua10', 'Killua23']
+['Killua20', 'Killua31']
+['Killua20', 'Killua32']
+['Killua20', 'Killua33']
+['Killua30', 'Killua41']
+['Killua30', 'Killua42']
+['Killua30', 'Killua43']
+['Killua40', 'Killua1']
+['Killua40', 'Killua2']
+['Killua40', 'Killua3']

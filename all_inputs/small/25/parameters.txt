@@ -1,0 +1,14 @@
+5
+10
+['NSEBD', 'RJ', 'XA']
+['DHC', 'XA', 'HB', 'W', 'NVQ', 'GI']
+['KJDGE', 'SPQ', 'XBE', 'XHJBCO', 'GCL']
+['DHC', 'RJ', 'GI', 'BWAO', 'BKI']
+['XHJBCO', 'LJN', 'HB', 'GTYF', 'QBA', 'BY', 'RJ']
+['HZCJ', 'T', 'NSEBD', 'SPQ', 'VUOUD', 'PVWYTF', 'XHJBCO']
+['KJDGE', 'MBW', 'PVWYTF']
+['LWSP', 'MBW', 'CG', 'QILMTX']
+['BY', 'DHC', 'GTYF', 'W', 'QBA', 'F', 'XA', 'QJR']
+['LJN', 'QBA']
+['SSQQGJ', 'QJR', 'GI', 'BD', 'HBEQX', 'MBW', 'KJDGE', 'OGAMX']
+['NVQ', 'KJDGE', 'MBW', 'XFY', 'JBY', 'CG', 'HBEQX', 'HZCJ']

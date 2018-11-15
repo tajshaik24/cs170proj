@@ -1,0 +1,7 @@
+20
+50
+['Dario', 'Orval', 'Barry', 'Lorie', 'Major', 'Rufus', 'Claud', 'Ilene', 'Tommy', 'Holly']
+['Sofia', 'Brock', 'Adela', 'Mason', 'Bruno', 'Hazel', 'Lacey', 'Emily', 'Joyce', 'Shane']
+['Bobbi', 'Essie', 'Carla', 'Queen', 'Misty', 'Elmer', 'Doris', 'Adele', 'Alvin', 'Nikki']
+['Quinn', 'Arlen', 'Donny', 'Bette', 'Cesar', 'Malik', 'Candy', 'Carly', 'Alice', 'Mandy']
+['Mikel', 'Kelly', 'April', 'Elena', 'Mitch', 'Rhett', 'Roxie', 'Vilma', 'Dante', 'Betsy']

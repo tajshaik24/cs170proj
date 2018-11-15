@@ -1,0 +1,17 @@
+5
+15
+['Harry1']
+['Hagrid1', 'Ron1']
+['Evan1', 'Lily1', 'Remus1', 'Fred1', 'Rabastan1', 'Hermione1', 'Malfoy1', 'Alecto1', 'Lucius1', 'Bellatrix1']
+['George1']
+['Voldemort1', 'Rodolphus1', 'Crabbe1', 'Goyle1']
+['Dumbledore1']
+['James1', 'McGonagall1', 'Amycus1']
+['Flitwick1']
+['Snape1']
+['Sirius1']
+['Ron', 'George', 'Hermione', 'Fred', 'Harry']
+['Goyle', 'Crabbe', 'Malfoy']
+['James', 'Hagrid', 'Lily', 'Sirius', 'Dumbledore', 'Snape', 'Flitwick', 'Remus', 'McGonagall']
+['Voldemort']
+['Amycus', 'Rodolphus', 'Lucius', 'Rabastan', 'Alecto', 'Bellatrix', 'Evan']

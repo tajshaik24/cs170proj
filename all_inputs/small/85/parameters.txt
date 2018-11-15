@@ -1,0 +1,10 @@
+8
+5
+['ALG', 'DAJ', 'FRF', 'SLD', 'TSN']
+['FZZ', 'KKI', 'YBG']
+['ISX', 'PXV']
+['DAJ', 'DPP', 'GED', 'PUV', 'TJX', 'VPR']
+['DAJ', 'ISX', 'TJX', 'UVI', 'VDO', 'ZVL']
+['DAJ', 'ISX', 'OTY', 'OYH', 'VDO', 'YWD']
+['GED', 'OTY', 'VOR']
+['OHT', 'PXV', 'TJX', 'YBG']
