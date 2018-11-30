@@ -5,14 +5,13 @@ import random
 import sys
 import itertools
 import math
+import metis
 
 def main():
 	inputs = readInput()
 	G = inputs[0]
-	
 	for u,v,d in G.edges(data=True):
 		d['weight'] = 1
-
 	num_buses = inputs[1]
 	size_bus = inputs[2]
 	constraints = inputs[3]
@@ -65,6 +64,16 @@ def addRowdyEdges(G, edges):
 	G.add_weighted_edges_from(l)
 	return G
 
+def new_partition(G, num_buses):
+	graph_components = {}
+	(edgecuts, parts) = metis.part_graph(G, num_buses)
+	nodes_subgraph = [[] for _ in range(num_buses)]
+	for i, p in enumerate(parts):
+		nodes_subgraph[p].append(i)
+	for i in nodes_subgraph:
+		sub_graph = G.subgraph(i)
+		graph_components[sub_graph] = nx.number_of_nodes(sub_graph)
+	return graph_components
 
 def partition(G, capacity):
     graph_components = {}
