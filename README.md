@@ -17,15 +17,15 @@ Run the following command with respective flags to generate small, medium, and l
 
 ## Solver
 
-In order to use the solver, you must install the following packages: \
+In order to use the solver, you must install the following packages:
 <ul>
-<li>`networkx`</li>
-<li>`metis`</li>
+<li>networkx</li>
+<li>metis</li>
 </ul> 
-These packages can be installed with `pip` using the following commands: \
+These packages can be installed with `pip` using the following commands: 
 <ul>
-<li>`pip install networkx`</li>
-<li>`pip install metis`</li>
+<li>pip install networkx</li>
+<li>pip install metis</li>
 </ul> 
 If you don't have pip installed on your machine: please visit the following website: https://pip.pypa.io/en/stable/installing/
 
