@@ -12,21 +12,40 @@ def main(inputFolder, outputFolder):
 	inputs = readInput(inputFolder)
 	G = inputs[0]
 	G.remove_edges_from(G.selfloop_edges())
+	encode = {}
+	decode = {}
+	labelID = 0
+	for node in G.nodes:
+		encode[node] = labelID
+		decode[labelID] = node
+		labelID += 1
+
+	G = nx.relabel_nodes(G, encode)
+
 	for u,v,d in G.edges(data=True):
 		d['weight'] = 1
 	num_buses = inputs[1]
 	size_bus = inputs[2]
 	constraints = inputs[3]
+	for i in range(len(constraints)):
+		for j in range(len(constraints[i])):
+			constraints[i][j] = encode[constraints[i][j]]
+
 	edges_dict = computeRowdyEdges(constraints)
 	newG = addRowdyEdges(G, edges_dict)
-	#draw(newG)
 	#Use min-cut algorithm to make the cuts of max size size_buses
 	#Recursively partition until we have it num_buses
 	#components = partition(newG, num_buses)
 	components = new_partition(newG, num_buses, size_bus)
+	print(components)
 	bus_arrangements = merge(components, num_buses, G, size_bus)
+	for i in range(len(bus_arrangements)):
+		for j in range(len(bus_arrangements[i])):
+			bus_arrangements[i][j] = decode[bus_arrangements[i][j]]
+
 	print("Bus Arrangements:")
-	print(bus_arrangements)
+	for p in bus_arrangements:
+		print(p)
 	print("End")
 	if bus_arrangements is None:
 		return
@@ -77,10 +96,17 @@ def new_partition(G, num_buses, size_bus):
 	(edgecuts, parts) = metis.part_graph(G, num_buses)
 	nodes_subgraph = [[] for _ in range(max(parts) + 1)]
 	for i, p in enumerate(parts):
-		nodes_subgraph[p].append(str(i))
+		nodes_subgraph[p].append(i)
+	nodes_subgraph = [x for x in nodes_subgraph if len(x) > 0]
 	for i in nodes_subgraph:
+		print(i)
 		sub_graph = G.subgraph(i)
-		graph_components[sub_graph] = nx.number_of_nodes(sub_graph)
+		if nx.number_of_nodes(sub_graph) > size_bus:
+			recurisve_part = new_partition(sub_graph, 2, size_bus)
+			for k, v in recurisve_part.items():
+				graph_components[k] = v
+		else:
+			graph_components[sub_graph] = nx.number_of_nodes(sub_graph)
 	return graph_components
 
 def partition(G, capacity):
@@ -121,12 +147,15 @@ def merge(comp_dict, k, G, bus_size):
 	
 	length = len(sorted_comp)
 	connections = [[0 for i in range(length)] for j in range(length)]
+	sd = []
 	for i in sorted_comp:
 		i[0].graph['id'] = gID
 		gidMap[str(gID)] = i[0]
+		sd.append([str(gID), (i[0], i[1])])
 		gID += 1
 
-	sorted_comp = [[str(x[0].graph['id']), (x[0], x[1])] for x in sorted_comp]
+	
+	sorted_comp = sd
 
 
 	for a in sorted_comp:
@@ -196,6 +225,9 @@ def draw(G):
 	#nx.draw(G)
 	pos = nx.spring_layout(G,k=1,iterations=20)
 	nx.draw(G, pos)
+	labels = nx.get_edge_attributes(G,'weight')
+	#nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
+	nx.draw_networkx_labels(G, pos=pos)
 	plt.show()
 
 
@@ -223,8 +255,9 @@ def draw(G):
 # 	print("Average is: ", sum(scores)/len(scores))
 
 if __name__ == '__main__':
-	iname = "all_inputs/small/45/"
-	oname = "all_outputs/small/45/"
+	iname = "all_inputs/small/161/"
+	oname = "all_outputs/small/161/"
 	main(iname, oname)
 	score, msg = score_output(iname, oname + ".out")
 	print(msg)
+	print("Score: ", score*100, "%")
