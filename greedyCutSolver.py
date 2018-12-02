@@ -6,10 +6,12 @@ import sys
 import itertools
 import math
 import metis
+from skeleton.output_scorer import score_output
 
-def main():
-	inputs = readInput()
+def main(inputFolder, outputFolder):
+	inputs = readInput(inputFolder)
 	G = inputs[0]
+	G.remove_edges_from(G.selfloop_edges())
 	for u,v,d in G.edges(data=True):
 		d['weight'] = 1
 	num_buses = inputs[1]
@@ -17,12 +19,15 @@ def main():
 	constraints = inputs[3]
 	edges_dict = computeRowdyEdges(constraints)
 	newG = addRowdyEdges(G, edges_dict)
+	draw(newG)
 	#Use min-cut algorithm to make the cuts of max size size_buses
 	#Recursively partition until we have it num_buses
-	components = partition(newG, size_bus)
+	#components = partition(newG, num_buses)
+	components = new_partition(newG, num_buses, size_bus)
 	bus_arrangements = merge(components, num_buses, G, size_bus)
-	
-	folder = "all_outputs/small/260/"
+	if bus_arrangements is None:
+		return
+	folder = outputFolder
 	if not os.path.exists(folder):
 		os.makedirs(folder)
 	file = folder + '.out'
@@ -41,12 +46,12 @@ def computeRowdyEdges(constraints):
             if(edge in edge_weights):
                 edge_weights[edge] = max(edge_weights.get(edge), -1/length)
             else:
-                edge_weights[edge] = -1/length
+                edge_weights[edge] = -1/(length)
     return edge_weights
 	
-def readInput():
-	graph = nx.read_gml("all_inputs/small/260/graph.gml")
-	parameters = open("all_inputs/small/260/parameters.txt")
+def readInput(inputFolder):
+	graph = nx.read_gml(inputFolder + "graph.gml")
+	parameters = open(inputFolder + "parameters.txt")
 	num_buses = int(parameters.readline())
 	size_bus = int(parameters.readline())
 	constraints = []
@@ -64,15 +69,23 @@ def addRowdyEdges(G, edges):
 	G.add_weighted_edges_from(l)
 	return G
 
-def new_partition(G, num_buses):
+def new_partition(G, num_buses, size_bus):
 	graph_components = {}
 	(edgecuts, parts) = metis.part_graph(G, num_buses)
 	nodes_subgraph = [[] for _ in range(num_buses)]
 	for i, p in enumerate(parts):
 		nodes_subgraph[p].append(i)
+	print(nodes_subgraph)
 	for i in nodes_subgraph:
 		sub_graph = G.subgraph(i)
+		draw(sub_graph)
+		# if nx.number_of_nodes(sub_graph) > size_bus:
+		# 	recurisve_components = new_partition(sub_graph, 2, size_bus)
+		# 	for k, v in recurisve_components.items():
+		# 		graph_components[k] = v
+		# else:
 		graph_components[sub_graph] = nx.number_of_nodes(sub_graph)
+	print(graph_components)
 	return graph_components
 
 def partition(G, capacity):
@@ -140,7 +153,8 @@ def merge(comp_dict, k, G, bus_size):
 
 		
 		if otherID == '':
-			raise Exception("Could not merge components further!")
+			print("Could not merge components further!")
+			return None
 		
 		sorted_comp = list(filter(lambda x: x[0] != otherID, sorted_comp))
 		
@@ -190,5 +204,32 @@ def draw(G):
 	plt.show()
 
 
+# if __name__ == '__main__':
+# 	iname = "all_inputs/small/"
+# 	oname = "all_outputs/small/"
+# 	a = []
+# 	b = []
+# 	for x in os.listdir(iname)[:30]:
+# 		x = x + "/"
+# 		try:
+# 			main(iname+x, oname+x)
+# 			a.append(iname+x)
+# 			b.append(oname+x+".out")
+# 		except:
+# 			continue
+# 	scores = []
+# 	for i in range(len(a)):
+# 		try:
+# 			score, msg = score_output(a[i], b[i])
+# 			scores.append(score)
+# 			print(msg)
+# 		except:
+# 			continue
+# 	print("Average is: ", sum(scores)/len(scores))
+
 if __name__ == '__main__':
-    main()
+	iname = "all_inputs/small/45/"
+	oname = "all_outputs/small/45/"
+	main(iname, oname)
+	score, msg = score_output(iname, oname + ".out")
+	print(msg)

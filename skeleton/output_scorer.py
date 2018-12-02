@@ -27,8 +27,8 @@ def score_output(input_folder, output_file):
             score - a number between 0 and 1 which represents what fraction of friendships were broken
             msg - a string which stores error messages in case the output file is not valid for the given input
     '''
-    graph = nx.read_gml(input_folder + "/graph.gml")
-    parameters = open(input_folder + "/parameters.txt")
+    graph = nx.read_gml(input_folder + "graph.gml")
+    parameters = open(input_folder + "parameters.txt")
     num_buses = int(parameters.readline())
     size_bus = int(parameters.readline())
     constraints = []
