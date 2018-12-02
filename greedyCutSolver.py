@@ -19,12 +19,15 @@ def main(inputFolder, outputFolder):
 	constraints = inputs[3]
 	edges_dict = computeRowdyEdges(constraints)
 	newG = addRowdyEdges(G, edges_dict)
-	draw(newG)
+	#draw(newG)
 	#Use min-cut algorithm to make the cuts of max size size_buses
 	#Recursively partition until we have it num_buses
 	#components = partition(newG, num_buses)
 	components = new_partition(newG, num_buses, size_bus)
 	bus_arrangements = merge(components, num_buses, G, size_bus)
+	print("Bus Arrangements:")
+	print(bus_arrangements)
+	print("End")
 	if bus_arrangements is None:
 		return
 	folder = outputFolder
@@ -72,20 +75,12 @@ def addRowdyEdges(G, edges):
 def new_partition(G, num_buses, size_bus):
 	graph_components = {}
 	(edgecuts, parts) = metis.part_graph(G, num_buses)
-	nodes_subgraph = [[] for _ in range(num_buses)]
+	nodes_subgraph = [[] for _ in range(max(parts) + 1)]
 	for i, p in enumerate(parts):
-		nodes_subgraph[p].append(i)
-	print(nodes_subgraph)
+		nodes_subgraph[p].append(str(i))
 	for i in nodes_subgraph:
 		sub_graph = G.subgraph(i)
-		draw(sub_graph)
-		# if nx.number_of_nodes(sub_graph) > size_bus:
-		# 	recurisve_components = new_partition(sub_graph, 2, size_bus)
-		# 	for k, v in recurisve_components.items():
-		# 		graph_components[k] = v
-		# else:
 		graph_components[sub_graph] = nx.number_of_nodes(sub_graph)
-	print(graph_components)
 	return graph_components
 
 def partition(G, capacity):
