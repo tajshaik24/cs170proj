@@ -364,15 +364,16 @@ def draw(G):
 # 	print("Average is: ", sum(scores)/len(scores))
 
 if __name__ == '__main__':
-	iname = "all_inputs/medium"
-	oname = "all_outputs/medium/"
+	iname = "all_inputs/small/"
+	oname = "all_outputs/small/"
 
 	files = list(os.walk(iname))[0][1]
 	scores = []
+	files.sort()
 	for f in files:
 		print(f)
-		main(iname + "/" + f + "/", oname + "/")
-		score, msg = score_output(iname + "/" + f + "/", oname + "/.out")
+		main(iname + f + "/", oname + f + "/")
+		score, msg = score_output(iname + "/" + f + "/", oname + f + "/.out")
 		print(msg)
 		print("Score: ", score*100, "%")
 		try:
