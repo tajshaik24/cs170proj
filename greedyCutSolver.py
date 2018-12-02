@@ -369,7 +369,7 @@ if __name__ == '__main__':
 
 	files = list(os.walk(iname))[0][1]
 	scores = []
-	files.sort()
+	files.sort(reverse=True)
 	for f in files:
 		print(f)
 		main(iname + f + "/", oname + f + "/")
