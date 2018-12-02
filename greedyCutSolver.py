@@ -19,10 +19,7 @@ def main(inputFolder, outputFolder, name):
 		encode[node] = labelID
 		decode[labelID] = node
 		labelID += 1
-
-
 	G = nx.relabel_nodes(G, encode)
-
 	for u,v,d in G.edges(data=True):
 		d['weight'] = 1
 	num_buses = inputs[1]
@@ -42,8 +39,6 @@ def main(inputFolder, outputFolder, name):
 
 	edges_dict = computeRowdyEdges(constraints, G)
 	newG = addRowdyEdges(G, edges_dict)
-	#Use min-cut algorithm to make the cuts of max size size_buses
-	#Recursively partition until we have it num_buses
 	#components = partition(newG, num_buses)
 	components = new_partition(newG, num_buses, size_bus)
 	bus_arrangements = merge(components, num_buses, G, size_bus)
@@ -52,11 +47,6 @@ def main(inputFolder, outputFolder, name):
 	for i in range(len(bus_arrangements)):
 		for j in range(len(bus_arrangements[i])):
 			bus_arrangements[i][j] = decode[bus_arrangements[i][j]]
-
-	# print("Bus Arrangements:")
-	# for p in bus_arrangements:
-	# 	print(p)
-	# print("End")
 	if bus_arrangements is None:
 		return
 	writeOutput(bus_arrangements, outputFolder, name)
@@ -223,10 +213,8 @@ def merge(comp_dict, k, G, bus_size):
 	sorted_comp = sorted(comp_dict.items(), key=lambda kv: kv[1])
 	gidMap = {}
 	gID = 0
-
 	#Map Graph ID to list of tuples (gID, sumEdgesWeight)
 	#sorted_comp = [['GID', (GraphObject, SizeofGraph)], ...]
-	
 	length = len(sorted_comp)
 	connections = [[0 for i in range(length)] for j in range(length)]
 	sd = []
@@ -234,12 +222,8 @@ def merge(comp_dict, k, G, bus_size):
 		i[0].graph['id'] = gID
 		gidMap[str(gID)] = i[0]
 		sd.append([str(gID), (i[0], i[1])])
-		gID += 1
-
-	
+		gID += 1	
 	sorted_comp = sd
-
-
 	for a in sorted_comp:
 		for b in sorted_comp:
 			if a is not b and connections[a[1][0].graph['id']][b[1][0].graph['id']] is not None:
@@ -282,11 +266,7 @@ def merge(comp_dict, k, G, bus_size):
 				while added[index] + 1 > bus_size:
 					index = random.randint(0, len(sorted_comp) - 1)
 				buses[index].append(node)
-				added[index] += 1
-
-
-
-					
+				added[index] += 1	
 			return buses
 		
 		sorted_comp = list(filter(lambda x: x[0] != otherID, sorted_comp))
@@ -330,7 +310,6 @@ def findBestMerge(gID, sList, numGNodes, capacity, connections):
 	return otherID
 
 def draw(G):
-	#nx.draw(G)
 	pos = nx.spring_layout(G,k=1,iterations=20)
 	nx.draw(G, pos)
 	labels = nx.get_edge_attributes(G,'weight')
@@ -372,8 +351,8 @@ if __name__ == '__main__':
 	files.sort(reverse=True)
 	for f in files:
 		print(f)
-		main(iname + f + "/", oname + f + "/", f)
-		score, msg = score_output(iname + "/" + f + "/", oname + f + "/" + str(f) + ".out")
+		main(iname + f + "/", oname, f)
+		score, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
 		print(msg)
 		print("Score: ", score*100, "%")
 		try:
@@ -384,6 +363,34 @@ if __name__ == '__main__':
 	print("Average: ", sum(scores)/len(scores))
 	print(len(files))
 	print(len(scores))
+
+# if __name__ == '__main__':
+# 	iname = "all_inputs/large/1072/"
+# 	oname = "all_outputs/large/1072/"
+# 	scores = []
+# 	print(1073)
+# 	main(iname, oname, "1072")
+# 	score, msg = score_output(iname, oname + str(1072) + ".out")
+# 	print(msg)
+# 	print("Score: ", score*100, "%")
+# 	try:
+# 		if score >= 0:
+# 			scores.append(score)
+# 	except:
+# 		print("Hello")
+
+
+# if __name__ == '__main__':
+#     for i in range(1068, 1072):
+#         iname = "all_inputs/large/"+str(i)+"/"
+#         oname = "all_outputs/large/"+str(i)+"/"
+#         scores = []
+#         print(i)
+#         main(iname, oname, str(i))
+#         score, msg = score_output(iname, oname + str(i) + ".out")
+#         print(msg)
+#         print("Score: ", score*100, "%")
+
 
 
 # if __name__ == '__main__':
