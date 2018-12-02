@@ -8,7 +8,7 @@ import math
 import metis
 from skeleton.output_scorer import score_output
 
-def main(inputFolder, outputFolder):
+def main(inputFolder, outputFolder, name):
 	inputs = readInput(inputFolder)
 	G = inputs[0]
 	G.remove_edges_from(G.selfloop_edges())
@@ -59,13 +59,13 @@ def main(inputFolder, outputFolder):
 	# print("End")
 	if bus_arrangements is None:
 		return
-	writeOutput(bus_arrangements, outputFolder)
+	writeOutput(bus_arrangements, outputFolder, name)
 
 
-def writeOutput(bus_arrangements, folder):
+def writeOutput(bus_arrangements, folder, name):
 	if not os.path.exists(folder):
 		os.makedirs(folder)
-	file = folder + '.out'
+	file = folder + name +'.out'
 	with open(file, 'w') as f:
 		for bus in bus_arrangements:
 			f.write("%s\n" % bus)
@@ -372,8 +372,8 @@ if __name__ == '__main__':
 	files.sort(reverse=True)
 	for f in files:
 		print(f)
-		main(iname + f + "/", oname + f + "/")
-		score, msg = score_output(iname + "/" + f + "/", oname + f + "/.out")
+		main(iname + f + "/", oname + f + "/", f)
+		score, msg = score_output(iname + "/" + f + "/", oname + f + "/" + str(f) + ".out")
 		print(msg)
 		print("Score: ", score*100, "%")
 		try:
