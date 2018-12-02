@@ -32,7 +32,7 @@ def main(inputFolder, outputFolder, name):
 		for node in G.nodes:
 			students.append(decode[node])
 		bus_arrangements.append(students)
-		writeOutput(bus_arrangements, outputFolder)
+		writeOutput(bus_arrangements, outputFolder, name)
 		return
 	size_bus = inputs[2]
 	constraints = inputs[3]
