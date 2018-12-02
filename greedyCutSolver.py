@@ -364,8 +364,8 @@ def draw(G):
 # 	print("Average is: ", sum(scores)/len(scores))
 
 if __name__ == '__main__':
-	iname = "all_inputs/small/"
-	oname = "all_outputs/small/"
+	iname = "all_inputs/medium/"
+	oname = "all_outputs/medium/"
 
 	files = list(os.walk(iname))[0][1]
 	scores = []
