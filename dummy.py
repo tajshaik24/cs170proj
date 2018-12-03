@@ -5,7 +5,7 @@ from skeleton.output_scorer import score_output
 shuffle = random.shuffle
 
 
-def main(name):
+def main(name, counter):
 	iname = "all_inputs/small/" + name + "/"
 	inputs = readInput(iname)
 	G = inputs[0]
@@ -38,7 +38,7 @@ def main(name):
 			bus_arrangements[i][j] = decode[bus_arrangements[i][j]]
 
 	oname = "all_outputs/small/"
-	writeOutput(bus_arrangements, oname, name)
+	writeOutput(bus_arrangements, oname, name, counter)
 
 
 def readInput(inputFolder):
@@ -54,10 +54,10 @@ def readInput(inputFolder):
 	return (graph, num_buses, size_bus, constraints)
 
 
-def writeOutput(bus_arrangements, folder, name):
+def writeOutput(bus_arrangements, folder, name, counter):
 	if not os.path.exists(folder):
 		os.makedirs(folder)
-	file = folder + name +'.out'
+	file = folder + name + str(counter) + '5.out'
 	with open(file, 'w') as f:
 		for bus in bus_arrangements:
 			f.write("%s\n" % bus)

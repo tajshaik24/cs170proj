@@ -353,8 +353,8 @@ def draw(G):
 # 	print("Average is: ", sum(scores)/len(scores))
 
 if __name__ == '__main__':
-	iname = "all_inputs/medium/"
-	oname = "all_outputs/medium/"
+	iname = "all_inputs/small/"
+	oname = "all_outputs/small/"
 
 	files = list(os.walk(iname))[0][1]
 	scores = []
@@ -366,24 +366,28 @@ if __name__ == '__main__':
 			score1, msg = score_output(iname + "/" + f + "/", oname + str(f) + "1.out")
 		except:
 			score1 = 0
+			open(oname + str(f) + "1.out", 'a').close()
 		try:
 			main(iname + f + "/", oname, f + "2", 2)
 			score2, msg = score_output(iname + "/" + f + "/", oname + str(f) + "2.out")
 		except:
 			score2 == 0
+			open(oname + str(f) + "2.out", 'a').close()
 		try:
 			main(iname + f + "/", oname, f + "3", 3)
 			score3, msg = score_output(iname + "/" + f + "/", oname + str(f) + "3.out")
 		except:
 			score3 = 0
+			open(oname + str(f) + "3.out", 'a').close()
 		try:
 			main(iname + f + "/", oname, f + "4", 4)
 			score4, msg = score_output(iname + "/" + f + "/", oname + str(f) + "4.out")
 		except:
 			score4 = 0
+			open(oname + str(f) + "4.out", 'a').close()
 		dummyScores = []
 		for i in range(5):
-			dummy.main(f)
+			dummy.main(f, i)
 			scoreDum, msg = score_output(iname + "/" + f + "/", oname + str(f) + str(i) + "5.out")
 			dummyScores.append(scoreDum)
 		score5 = max(dummyScores)
