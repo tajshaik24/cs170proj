@@ -30,5 +30,5 @@ These packages can be installed with `pip` using the following commands:
 If you don't have pip installed on your machine: please visit the following website: https://pip.pypa.io/en/stable/installing/
 
 Run the following command with respective flags to generate the outputs:\
-`python3 greedyCutSolver.py`
+`python3 skeleton/solver.py`
 
