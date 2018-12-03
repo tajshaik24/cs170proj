@@ -453,7 +453,9 @@ if __name__ == '__main__':
 		while score == 0:
 			if count > 10:
 				break
+			os.remove(oname + str(f) + ".out")
 			dummy.main(f)
+			os.rename(oname + str(f) + "0.out", oname + str(f) + ".out")
 			score, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
 			count += 1
 		print("Score: ", score*100, "%")
