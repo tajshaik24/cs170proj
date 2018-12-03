@@ -29,6 +29,6 @@ These packages can be installed with `pip` using the following commands:
 </ul> 
 If you don't have pip installed on your machine: please visit the following website: https://pip.pypa.io/en/stable/installing/
 
-Run the following command with respective flags to generate the outputs:\
-`python3 skeleton/solver.py`
+Modify the variable input_type to the folder which u desire to run. Run the following command with respective flags to generate the outputs:\
+`python3 greedyCutSolver.py`
 

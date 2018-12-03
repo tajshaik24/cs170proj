@@ -45,7 +45,7 @@ def parse_input(folder_name):
 
 def solve():
     #TODO: Write this method as you like. We'd recommend changing the arguments here as well
-    size_categories = ["small", "medium", "large"]
+    size_categories = ["medium"]
     for size in size_categories:
         gcSolver.solver_main(size)
 
