@@ -6,7 +6,7 @@ import sys
 import itertools
 import math
 import metis
-from output_scorer import score_output
+from skeleton.output_scorer import score_output
 import dummy
 
 def main(inputFolder, outputFolder, name, case):
@@ -352,7 +352,8 @@ def draw(G):
 # 			continue
 # 	print("Average is: ", sum(scores)/len(scores))
 
-def solver_main(input_type):
+if __name__ == '__main__':
+	input_type = "medium"
 	iname = "all_inputs/" + input_type + "/"
 	oname = "all_outputs/" + input_type + "/"
 
@@ -387,7 +388,7 @@ def solver_main(input_type):
 			open(oname + str(f) + "4.out", 'a').close()
 		dummyScores = []
 		for i in range(5):
-			dummy.main(f, i, iType = input_type)
+			dummy.main(f, input_type, i)
 			scoreDum, msg = score_output(iname + "/" + f + "/", oname + str(f) + str(i) + "5.out")
 			dummyScores.append(scoreDum)
 		score5 = max(dummyScores)

@@ -5,7 +5,7 @@ from skeleton.output_scorer import score_output
 shuffle = random.shuffle
 
 
-def main(name, counter=0, iType):
+def main(name, iType, counter=0,):
 	iname = "all_inputs/" + iType + "/" + name + "/"
 	inputs = readInput(iname)
 	G = inputs[0]
