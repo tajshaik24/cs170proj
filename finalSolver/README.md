@@ -29,7 +29,7 @@ These packages can be installed with `pip` using the following commands:
 </ul> 
 If you don't have pip installed on your machine: please visit the following website: https://pip.pypa.io/en/stable/installing/
 
-Before running the code, make sure you have the following folders inside the current directory: `all_inputs` and `all_outputs`.
+Before running the code, make sure you have the following folder inside the current directory: `all_inputs` which contains all of the provided inputs`.
 
 Run the following command with respective flags to generate the outputs:\
 `python3 solver.py`
