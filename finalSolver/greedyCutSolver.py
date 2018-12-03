@@ -387,7 +387,7 @@ def solver_main(input_type):
 			open(oname + str(f) + "4.out", 'a').close()
 		dummyScores = []
 		for i in range(5):
-			dummy.main(f, i, iType = input_type)
+			dummy.main(f, iType = input_type, counter = i)
 			scoreDum, msg = score_output(iname + "/" + f + "/", oname + str(f) + str(i) + "5.out")
 			dummyScores.append(scoreDum)
 		score5 = max(dummyScores)
