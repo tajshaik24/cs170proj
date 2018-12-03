@@ -354,7 +354,7 @@ def draw(G):
 
 def solver_main(input_type)
 	iname = "all_inputs/" + input_type + "/"
-	oname = "all_outputs/ + input_type + "/""
+	oname = "all_outputs/" + input_type + "/"
 
 	files = list(os.walk(iname))[0][1]
 	scores = []
@@ -467,40 +467,3 @@ def solver_main(input_type)
 	print("Average: ", sum(scores)/len(scores))
 	print(len(files))
 	print(len(scores))
-
-# if __name__ == '__main__':
-# 	iname = "all_inputs/large/1045/"
-# 	oname = "all_outputs/large/1045/"
-# 	scores = []
-# 	print(45)
-# 	main(iname, oname, "45")
-# 	score, msg = score_output(iname, oname + str(45) + ".out")
-# 	print(msg)
-# 	print("Score: ", score*100, "%")
-# 	try:
-# 		if score >= 0:
-# 			scores.append(score)
-# 	except:
-# 		print("Hello")
-
-
-# if __name__ == '__main__':
-#     for i in range(1068, 1072):
-#         iname = "all_inputs/large/"+str(i)+"/"
-#         oname = "all_outputs/large/"+str(i)+"/"
-#         scores = []
-#         print(i)
-#         main(iname, oname, str(i))
-#         score, msg = score_output(iname, oname + str(i) + ".out")
-#         print(msg)
-#         print("Score: ", score*100, "%")
-
-
-
-# if __name__ == '__main__':
-# 	iname = "all_inputs/small/325/"
-# 	oname = "all_outputs/small/325/"
-# 	main(iname, oname)
-# 	score, msg = score_output(iname, oname + ".out")
-# 	print(msg)
-# 	print("Score: ", score*100, "%")
