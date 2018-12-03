@@ -352,13 +352,13 @@ def draw(G):
 # 			continue
 # 	print("Average is: ", sum(scores)/len(scores))
 
-if __name__ == '__main__':
-	iname = "all_inputs/small/"
-	oname = "all_outputs/small/"
+def solver_main(input_type)
+	iname = "all_inputs/" + input_type + "/"
+	oname = "all_outputs/ + input_type + "/""
 
 	files = list(os.walk(iname))[0][1]
 	scores = []
-	files.sort(reverse=True)
+	files.sort()
 	for f in files:
 		print(f)
 		try:
@@ -387,7 +387,7 @@ if __name__ == '__main__':
 			open(oname + str(f) + "4.out", 'a').close()
 		dummyScores = []
 		for i in range(5):
-			dummy.main(f, i)
+			dummy.main(f, i, iType = input_type)
 			scoreDum, msg = score_output(iname + "/" + f + "/", oname + str(f) + str(i) + "5.out")
 			dummyScores.append(scoreDum)
 		score5 = max(dummyScores)
@@ -454,7 +454,7 @@ if __name__ == '__main__':
 			if count > 10:
 				break
 			os.remove(oname + str(f) + ".out")
-			dummy.main(f)
+			dummy.main(f, iType=input_type)
 			os.rename(oname + str(f) + "05.out", oname + str(f) + ".out")
 			score, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
 			count += 1

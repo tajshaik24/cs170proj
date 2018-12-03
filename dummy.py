@@ -5,8 +5,8 @@ from skeleton.output_scorer import score_output
 shuffle = random.shuffle
 
 
-def main(name, counter=0):
-	iname = "all_inputs/small/" + name + "/"
+def main(name, counter=0, iType):
+	iname = "all_inputs/" + iType + "/" + name + "/"
 	inputs = readInput(iname)
 	G = inputs[0]
 	num_buses = inputs[1]
@@ -37,7 +37,7 @@ def main(name, counter=0):
 		for j in range(len(bus_arrangements[i])):
 			bus_arrangements[i][j] = decode[bus_arrangements[i][j]]
 
-	oname = "all_outputs/small/"
+	oname = "all_outputs/" + iType + "/"
 	writeOutput(bus_arrangements, oname, name, counter)
 
 

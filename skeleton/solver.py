@@ -1,5 +1,6 @@
 import networkx as nx
 import os
+import greedyCutSolver as gcSolver
 
 ###########################################
 # Change this variable to the path to 
@@ -44,7 +45,7 @@ def parse_input(folder_name):
 
 def solve():
     #TODO: Write this method as you like. We'd recommend changing the arguments here as well
-    pass
+    
 
 def main():
     '''
@@ -54,30 +55,32 @@ def main():
         formatted correctly.
     '''
     size_categories = ["small", "medium", "large"]
-    size_categories = ["small"]
-    if not os.path.isdir(path_to_outputs):
-        os.mkdir(path_to_outputs)
-
     for size in size_categories:
-        category_path = path_to_inputs + "/" + size
-        output_category_path = path_to_outputs + "/" + size
-        category_dir = os.fsencode(category_path)
+        gcSolver.solver_main(size)
+    # size_categories = ["small"]
+    # if not os.path.isdir(path_to_outputs):
+    #     os.mkdir(path_to_outputs)
+
+    # for size in size_categories:
+    #     category_path = path_to_inputs + "/" + size
+    #     output_category_path = path_to_outputs + "/" + size
+    #     category_dir = os.fsencode(category_path)
         
-        if not os.path.isdir(output_category_path):
-            os.mkdir(output_category_path)
+    #     if not os.path.isdir(output_category_path):
+    #         os.mkdir(output_category_path)
 
-        for input_folder in os.listdir(category_dir):
-            input_name = os.fsdecode(input_folder) 
-            graph, num_buses, size_bus, constraints = parse_input(category_path + "/" + input_name)
-            solution = solve(graph, num_buses, size_bus, constraints)
-            output_file = open(output_category_path + "/" + input_name + ".out", "w")
+    #     for input_folder in os.listdir(category_dir):
+    #         input_name = os.fsdecode(input_folder) 
+    #         graph, num_buses, size_bus, constraints = parse_input(category_path + "/" + input_name)
+    #         solution = solve(graph, num_buses, size_bus, constraints)
+    #         output_file = open(output_category_path + "/" + input_name + ".out", "w")
 
-            #TODO: modify this to write your solution to your 
-            #      file properly as it might not be correct to 
-            #      just write the variable solution to a file
-            output_file.write(solution)
+    #         #TODO: modify this to write your solution to your 
+    #         #      file properly as it might not be correct to 
+    #         #      just write the variable solution to a file
+    #         output_file.write(solution)
 
-            output_file.close()
+    #         output_file.close()
 
 if __name__ == '__main__':
     main()
