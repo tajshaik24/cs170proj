@@ -352,7 +352,7 @@ def draw(G):
 # 			continue
 # 	print("Average is: ", sum(scores)/len(scores))
 
-def solver_main(input_type)
+def solver_main(input_type):
 	iname = "all_inputs/" + input_type + "/"
 	oname = "all_outputs/" + input_type + "/"
 
