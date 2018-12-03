@@ -54,6 +54,7 @@ def main():
         formatted correctly.
     '''
     size_categories = ["small", "medium", "large"]
+    size_categories = ["small"]
     if not os.path.isdir(path_to_outputs):
         os.mkdir(path_to_outputs)
 

@@ -7,8 +7,9 @@ import itertools
 import math
 import metis
 from skeleton.output_scorer import score_output
+import dummy
 
-def main(inputFolder, outputFolder, name):
+def main(inputFolder, outputFolder, name, case):
 	inputs = readInput(inputFolder)
 	G = inputs[0]
 	G.remove_edges_from(G.selfloop_edges())
@@ -38,9 +39,18 @@ def main(inputFolder, outputFolder, name):
 			constraints[i][j] = encode[constraints[i][j]]
 
 	edges_dict = computeRowdyEdges(constraints, G)
-	newG = addRowdyEdges(G, edges_dict)
-	#components = partition(newG, num_buses)
-	components = new_partition(newG, num_buses, size_bus)
+	if case == 1:
+		newG = G
+		components = partition(newG, num_buses)
+	elif case == 2:
+		newG = G
+		components = new_partition(newG, num_buses, size_bus)
+	elif case == 3:
+		newG = addRowdyEdges(G, edges_dict)
+		components = partition(newG, num_buses)
+	elif case == 4:
+		newG = addRowdyEdges(G, edges_dict)
+		components = new_partition(newG, num_buses, size_bus)
 	bus_arrangements = merge(components, num_buses, G, size_bus)
 	if bus_arrangements is None:
 		return
@@ -343,17 +353,48 @@ def draw(G):
 # 	print("Average is: ", sum(scores)/len(scores))
 
 if __name__ == '__main__':
-	iname = "all_inputs/medium/"
-	oname = "all_outputs/medium/"
+	iname = "all_inputs/small/"
+	oname = "all_outputs/small/"
 
 	files = list(os.walk(iname))[0][1]
 	scores = []
 	files.sort(reverse=True)
 	for f in files:
 		print(f)
-		main(iname + f + "/", oname, f)
-		score, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
-		print(msg)
+		try:
+			main(iname + f + "/", oname, f, 1)
+			score1, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+		except:
+			score1 = 0
+		try:
+			main(iname + f + "/", oname, f, 2)
+			score2, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+		except:
+			score2 == 0
+		try:
+			main(iname + f + "/", oname, f, 3)
+			score3, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+		except:
+			score3 = 0
+		try:
+			main(iname + f + "/", oname, f, 4)
+			score4, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+		except:
+			score4 = 0
+		dummyScores = []
+		for i in range(5):
+			dummy.main(f)
+			scoreDum, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+			dummyScores.append(scoreDum)
+		score5 = max(dummyScores)
+		score = max(score1, score2, score3, score4, score5)
+		count = 0
+		while score == 0:
+			if count > 10:
+				break
+			dummy.main(f)
+			score, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+			count += 1
 		print("Score: ", score*100, "%")
 		try:
 			if score >= 0:
@@ -365,12 +406,12 @@ if __name__ == '__main__':
 	print(len(scores))
 
 # if __name__ == '__main__':
-# 	iname = "all_inputs/large/1072/"
-# 	oname = "all_outputs/large/1072/"
+# 	iname = "all_inputs/large/1045/"
+# 	oname = "all_outputs/large/1045/"
 # 	scores = []
-# 	print(1073)
-# 	main(iname, oname, "1072")
-# 	score, msg = score_output(iname, oname + str(1072) + ".out")
+# 	print(45)
+# 	main(iname, oname, "45")
+# 	score, msg = score_output(iname, oname + str(45) + ".out")
 # 	print(msg)
 # 	print("Score: ", score*100, "%")
 # 	try:

@@ -4,8 +4,9 @@ import networkx as nx
 from skeleton.output_scorer import score_output
 shuffle = random.shuffle
 
-def main():
-	iname = "all_inputs/large/1067/"
+
+def main(name):
+	iname = "all_inputs/small/" + name + "/"
 	inputs = readInput(iname)
 	G = inputs[0]
 	num_buses = inputs[1]
@@ -23,22 +24,21 @@ def main():
 	shuffle(s)
 	bus_arrangements = [[] for i in range(num_buses)]
 	for i in range(len(bus_arrangements)):
-		while len(bus_arrangements[i]) < size_bus and len(s) != 0: 
-			x = s.pop()
-			bus_arrangements[i].append(x)
+		x = s.pop()
+		bus_arrangements[i].append(x)
 	while s:
 		busNum = random.randint(0, num_buses - 1)
-		bus_arrangements[busNum].append(s.pop())
+		if len(bus_arrangements[busNum]) + 1 <= size_bus:
+			bus_arrangements[busNum].append(s.pop())
+		else:
+			continue
 
 	for i in range(len(bus_arrangements)):
 		for j in range(len(bus_arrangements[i])):
 			bus_arrangements[i][j] = decode[bus_arrangements[i][j]]
 
-	oname = "all_outputs/large/"
-	writeOutput(bus_arrangements, oname, "1067")
-	score, msg = score_output(iname, oname + str(1067) + ".out")
-	print(msg)
-	print("Score: ", score*100, "%")
+	oname = "all_outputs/small/"
+	writeOutput(bus_arrangements, oname, name)
 
 
 def readInput(inputFolder):
@@ -65,4 +65,4 @@ def writeOutput(bus_arrangements, folder, name):
 
 
 if __name__ == '__main__':
-	main()
+	main("159")
