@@ -353,8 +353,8 @@ def draw(G):
 # 	print("Average is: ", sum(scores)/len(scores))
 
 if __name__ == '__main__':
-	iname = "all_inputs/small/"
-	oname = "all_outputs/small/"
+	iname = "all_inputs/medium/"
+	oname = "all_outputs/medium/"
 
 	files = list(os.walk(iname))[0][1]
 	scores = []
@@ -362,32 +362,89 @@ if __name__ == '__main__':
 	for f in files:
 		print(f)
 		try:
-			main(iname + f + "/", oname, f, 1)
-			score1, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+			main(iname + f + "/", oname, f + "1", 1)
+			score1, msg = score_output(iname + "/" + f + "/", oname + str(f) + "1.out")
 		except:
 			score1 = 0
 		try:
-			main(iname + f + "/", oname, f, 2)
-			score2, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+			main(iname + f + "/", oname, f + "2", 2)
+			score2, msg = score_output(iname + "/" + f + "/", oname + str(f) + "2.out")
 		except:
 			score2 == 0
 		try:
-			main(iname + f + "/", oname, f, 3)
-			score3, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+			main(iname + f + "/", oname, f + "3", 3)
+			score3, msg = score_output(iname + "/" + f + "/", oname + str(f) + "3.out")
 		except:
 			score3 = 0
 		try:
-			main(iname + f + "/", oname, f, 4)
-			score4, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+			main(iname + f + "/", oname, f + "4", 4)
+			score4, msg = score_output(iname + "/" + f + "/", oname + str(f) + "4.out")
 		except:
 			score4 = 0
 		dummyScores = []
 		for i in range(5):
 			dummy.main(f)
-			scoreDum, msg = score_output(iname + "/" + f + "/", oname + str(f) + ".out")
+			scoreDum, msg = score_output(iname + "/" + f + "/", oname + str(f) + str(i) + "5.out")
 			dummyScores.append(scoreDum)
 		score5 = max(dummyScores)
+		index_dum = dummyScores.index(score5)
+		os.rename(oname + str(f) + str(dummyScores.index(score5)) + "5.out", oname + str(f) + "5.out")
+		if index_dum == 0:
+			os.remove(oname + str(f) + "15.out")
+			os.remove(oname + str(f) + "25.out")
+			os.remove(oname + str(f) + "35.out")
+			os.remove(oname + str(f) + "45.out")
+		elif index_dum == 1:
+			os.remove(oname + str(f) + "05.out")
+			os.remove(oname + str(f) + "25.out")
+			os.remove(oname + str(f) + "35.out")
+			os.remove(oname + str(f) + "45.out")
+		elif index_dum == 2:
+			os.remove(oname + str(f) + "05.out")
+			os.remove(oname + str(f) + "15.out")
+			os.remove(oname + str(f) + "35.out")
+			os.remove(oname + str(f) + "45.out")
+		elif index_dum == 3:
+			os.remove(oname + str(f) + "05.out")
+			os.remove(oname + str(f) + "15.out")
+			os.remove(oname + str(f) + "25.out")
+			os.remove(oname + str(f) + "45.out")
+		elif index_dum == 4:
+			os.remove(oname + str(f) + "05.out")
+			os.remove(oname + str(f) + "15.out")
+			os.remove(oname + str(f) + "25.out")
+			os.remove(oname + str(f) + "35.out")
 		score = max(score1, score2, score3, score4, score5)
+		if score == score1:
+			os.rename(oname + str(f) + "1.out", oname + str(f) + ".out")
+			os.remove(oname + str(f) + "2.out")
+			os.remove(oname + str(f) + "3.out")
+			os.remove(oname + str(f) + "4.out")
+			os.remove(oname + str(f) + "5.out")
+		elif score == score2:
+			os.rename(oname + str(f) + "2.out", oname + str(f) + ".out")
+			os.remove(oname + str(f) + "1.out")
+			os.remove(oname + str(f) + "3.out")
+			os.remove(oname + str(f) + "4.out")
+			os.remove(oname + str(f) + "5.out")
+		elif score == score3:
+			os.rename(oname + str(f) + "3.out", oname + str(f) + ".out")
+			os.remove(oname + str(f) + "1.out")
+			os.remove(oname + str(f) + "2.out")
+			os.remove(oname + str(f) + "4.out")
+			os.remove(oname + str(f) + "5.out")
+		elif score == score4:
+			os.rename(oname + str(f) + "4.out", oname + str(f) + ".out")
+			os.remove(oname + str(f) + "1.out")
+			os.remove(oname + str(f) + "2.out")
+			os.remove(oname + str(f) + "3.out")
+			os.remove(oname + str(f) + "5.out")
+		elif score == score5:
+			os.rename(oname + str(f) + "4.out", oname + str(f) + ".out")
+			os.remove(oname + str(f) + "1.out")
+			os.remove(oname + str(f) + "2.out")
+			os.remove(oname + str(f) + "3.out")
+			os.remove(oname + str(f) + "5.out")
 		count = 0
 		while score == 0:
 			if count > 10:
