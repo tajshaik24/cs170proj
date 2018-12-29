@@ -352,34 +352,35 @@ def draw(G):
 # 			continue
 # 	print("Average is: ", sum(scores)/len(scores))
 
-if __name__ == '__main__':
-	input_type = "medium"
+def solver_main(input_type):
 	iname = "all_inputs/" + input_type + "/"
 	oname = "all_outputs/" + input_type + "/"
 
 	files = list(os.walk(iname))[0][1]
 	scores = []
-	files.sort(reverse=True)
-	for f in files:
+	files.sort()
+	h1 = files
+	h1.sort(reverse=True)
+	for f in h1:
 		print(f)
-		try:
-			main(iname + f + "/", oname, f + "1", 1)
-			score1, msg = score_output(iname + "/" + f + "/", oname + str(f) + "1.out")
-		except:
-			score1 = 0
-			open(oname + str(f) + "1.out", 'a').close()
+		# try:
+		# 	main(iname + f + "/", oname, f + "1", 1)
+		# 	score1, msg = score_output(iname + "/" + f + "/", oname + str(f) + "1.out")
+		# except:
+		# 	score1 = 0
+		# 	open(oname + str(f) + "1.out", 'a').close()
 		try:
 			main(iname + f + "/", oname, f + "2", 2)
 			score2, msg = score_output(iname + "/" + f + "/", oname + str(f) + "2.out")
 		except:
 			score2 == 0
 			open(oname + str(f) + "2.out", 'a').close()
-		try:
-			main(iname + f + "/", oname, f + "3", 3)
-			score3, msg = score_output(iname + "/" + f + "/", oname + str(f) + "3.out")
-		except:
-			score3 = 0
-			open(oname + str(f) + "3.out", 'a').close()
+		# try:
+		# 	main(iname + f + "/", oname, f + "3", 3)
+		# 	score3, msg = score_output(iname + "/" + f + "/", oname + str(f) + "3.out")
+		# except:
+		# 	score3 = 0
+		# 	open(oname + str(f) + "3.out", 'a').close()
 		try:
 			main(iname + f + "/", oname, f + "4", 4)
 			score4, msg = score_output(iname + "/" + f + "/", oname + str(f) + "4.out")
@@ -419,36 +420,37 @@ if __name__ == '__main__':
 			os.remove(oname + str(f) + "15.out")
 			os.remove(oname + str(f) + "25.out")
 			os.remove(oname + str(f) + "35.out")
-		score = max(score1, score2, score3, score4, score5)
-		if score == score1:
-			os.rename(oname + str(f) + "1.out", oname + str(f) + ".out")
-			os.remove(oname + str(f) + "2.out")
-			os.remove(oname + str(f) + "3.out")
-			os.remove(oname + str(f) + "4.out")
-			os.remove(oname + str(f) + "5.out")
-		elif score == score2:
+		# score = max(score1, score2, score3, score4, score5)
+		score = max(score2, score4, score5)
+		# if score == score1:
+		# 	os.rename(oname + str(f) + "1.out", oname + str(f) + ".out")
+		# 	os.remove(oname + str(f) + "2.out")
+		# 	os.remove(oname + str(f) + "3.out")
+		# 	os.remove(oname + str(f) + "4.out")
+		# 	os.remove(oname + str(f) + "5.out")
+		if score == score2:
 			os.rename(oname + str(f) + "2.out", oname + str(f) + ".out")
-			os.remove(oname + str(f) + "1.out")
-			os.remove(oname + str(f) + "3.out")
+			# os.remove(oname + str(f) + "1.out")
+			# os.remove(oname + str(f) + "3.out")
 			os.remove(oname + str(f) + "4.out")
 			os.remove(oname + str(f) + "5.out")
-		elif score == score3:
-			os.rename(oname + str(f) + "3.out", oname + str(f) + ".out")
-			os.remove(oname + str(f) + "1.out")
-			os.remove(oname + str(f) + "2.out")
-			os.remove(oname + str(f) + "4.out")
-			os.remove(oname + str(f) + "5.out")
+		# elif score == score3:
+		# 	os.rename(oname + str(f) + "3.out", oname + str(f) + ".out")
+		# 	os.remove(oname + str(f) + "1.out")
+		# 	os.remove(oname + str(f) + "2.out")
+		# 	os.remove(oname + str(f) + "4.out")
+		# 	os.remove(oname + str(f) + "5.out")
 		elif score == score4:
 			os.rename(oname + str(f) + "4.out", oname + str(f) + ".out")
-			os.remove(oname + str(f) + "1.out")
+			# os.remove(oname + str(f) + "1.out")
 			os.remove(oname + str(f) + "2.out")
-			os.remove(oname + str(f) + "3.out")
+			# os.remove(oname + str(f) + "3.out")
 			os.remove(oname + str(f) + "5.out")
 		elif score == score5:
 			os.rename(oname + str(f) + "4.out", oname + str(f) + ".out")
-			os.remove(oname + str(f) + "1.out")
+			# os.remove(oname + str(f) + "1.out")
 			os.remove(oname + str(f) + "2.out")
-			os.remove(oname + str(f) + "3.out")
+			# os.remove(oname + str(f) + "3.out")
 			os.remove(oname + str(f) + "5.out")
 		count = 0
 		while score == 0:
@@ -468,3 +470,45 @@ if __name__ == '__main__':
 	print("Average: ", sum(scores)/len(scores))
 	print(len(files))
 	print(len(scores))
+
+
+if __name__ == "__main__":
+	solver_main("small")
+
+
+# if __name__ == '__main__':
+# 	iname = "all_inputs/large/1045/"
+# 	oname = "all_outputs/large/1045/"
+# 	scores = []
+# 	print(45)
+# 	main(iname, oname, "45")
+# 	score, msg = score_output(iname, oname + str(45) + ".out")
+# 	print(msg)
+# 	print("Score: ", score*100, "%")
+# 	try:
+# 		if score >= 0:
+# 			scores.append(score)
+# 	except:
+# 		print("Hello")
+
+
+# if __name__ == '__main__':
+#     for i in range(1068, 1072):
+#         iname = "all_inputs/large/"+str(i)+"/"
+#         oname = "all_outputs/large/"+str(i)+"/"
+#         scores = []
+#         print(i)
+#         main(iname, oname, str(i))
+#         score, msg = score_output(iname, oname + str(i) + ".out")
+#         print(msg)
+#         print("Score: ", score*100, "%")
+
+
+
+# if __name__ == '__main__':
+# 	iname = "all_inputs/small/325/"
+# 	oname = "all_outputs/small/325/"
+# 	main(iname, oname)
+# 	score, msg = score_output(iname, oname + ".out")
+# 	print(msg)
+# 	print("Score: ", score*100, "%")
